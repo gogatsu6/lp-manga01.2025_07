@@ -1,104 +1,82 @@
 @charset "UTF-8";
 
-/* --------------共通　ここから-------------- */
+/* ========================================
+   共通設定
+======================================== */
 
 html {
   box-sizing: border-box;
-  font-size: 62.5%; /* -> 10px */
+  font-size: 62.5%;
   overflow-x: hidden;
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: inherit;
 }
 
 body {
   font-family: "Sawarabi Mincho", "Volkhov", sans-serif;
+  font-size: clamp(1.6rem, 4.6vw, 3.4rem);
   font-weight: 400;
-  font-style: normal;
-  font-size: calc(100vw / 21.5);
   line-height: 1.5;
   letter-spacing: 0.05em;
   color: #343232;
-  background-color: #131313;
+  background: #131313;
   overflow-x: hidden;
 }
 
-.fadeUP {
-  animation-name: fadeUpAnime;
-  animation-duration: 3s;
-  animation-fill-mode: forwards;
-  opacity: 0;
+img {
+  max-width: 100%;
+  height: auto;
+  display: block;
 }
 
-@keyframes fadeUpAnime {
-  from {
-    opacity: 0;
-  }
-  to {
-    opacity: 1;
-  }
+/* ========================================
+   Opening
+======================================== */
+
+.opening {
+  position: fixed;
+  inset: 0;
+  background: #131313;
+  z-index: 1000;
+  pointer-events: none;
+  animation: opening-hide 8s forwards;
 }
 
-/* --------------　OP　-------------- */
-
-.drawer-container__scroll {
+.opening__layer {
   position: absolute;
   inset: 0;
-  overflow: hidden;
-}
-.top_animation_scroll {
-  animation: img_3cut 4s ease forwards;
-}
-
-.fadeIn_op {
-  animation: logo_op 8s 0s;
-  position: absolute;
-  inset: 0;
-  width: 100%;
-  height: 100%;
   opacity: 0;
-  background-color: #131313;
+  animation: logo_op 4s;
 }
 
-.fadeIn_ecg,
-.fadeIn_logo,
-.fadeIn_bg {
-  animation: logo_op 4s 0s;
-  position: absolute;
-  inset: 0;
-  width: 100%;
-  height: 100%;
-  opacity: 0;
-}
-
-.fadeIn_ecg {
+.opening__ecg {
   background: url(../img/ECG.png) no-repeat center;
   animation-delay: 1s;
-  z-index: 1000;
-}
-.fadeIn_logo {
-  background: url(../img/logo_white-02.svg) no-repeat center;
-  animation-delay: 2s;
-  z-index: 2000;
-}
-.fadeIn_bg {
-  background: url(../img/32955198_s.jpg) no-repeat center/cover;
-  animation-delay: 6s;
-  z-index: 3000;
 }
 
-.fadeIn_bg::after {
+.opening__logo {
+  background: url(../img/logo_white-02.svg) no-repeat center;
+  animation-delay: 2s;
+}
+
+.opening__bg {
+  background: url(../img/32955198_s.jpg) no-repeat center/cover;
+  animation-delay: 6s;
+}
+
+.opening__bg::after {
   content: "";
   position: absolute;
-  z-index: 3011;
-  width: 100%;
-  height: 100%;
-  top: 0;
-  left: 0;
-  background-color: rgba(19, 19, 19, 0.9);
+  inset: 0;
+  background: #131313e6;
 }
 
 @keyframes logo_op {
-  0% {
-    opacity: 1;
-  }
+  0%,
   94% {
     opacity: 1;
   }
@@ -107,144 +85,128 @@ body {
   }
 }
 
-/* --------------　top_animation_3cut　-------------- */
-
-.top_animation_3cut {
-  position: absolute;
-  inset: 0;
-  width: 100%;
-  height: 100%;
-  z-index: 101;
-  overflow-x: hidden;
-}
-
-.cut01,
-.cut02,
-.cut03,
-.top_animation_text_container,
-.top_animation_text,
-.top_animation_scroll {
-  animation: img_3cut 4s ease forwards;
-}
-
-.top_animation_3cut div {
-  flex: 1;
-  height: calc(100% / 3);
-  background-size: 100%;
-}
-
-.cut01 {
-  background: url(../img/p13-1.png) no-repeat;
-  width: 191%;
-  transform: translate(-23%, 0);
-  animation-duration: 9s;
-  animation-delay: 0s;
-}
-.cut02 {
-  background: url(../img/p13-2.png) no-repeat;
-  width: 175%;
-  transform: translate(-1%, 0%);
-  animation-duration: 10s;
-  animation-delay: 0s;
-}
-.cut03 {
-  background: url(../img/p18-1-2.png) no-repeat;
-  width: 278%;
-  transform: translate(-26%, 0%);
-  animation-duration: 11s;
-  animation-delay: 0s;
-}
-
-@keyframes img_3cut {
+@keyframes opening-hide {
   0%,
-  90% {
-    opacity: 0;
-  }
-  90.1%,
-  100% {
+  94% {
     opacity: 1;
   }
+  100% {
+    opacity: 0;
+    visibility: hidden;
+  }
 }
 
-/* --------------　top_animation_text　-------------- */
+/* ========================================
+   TOP（3カット背景＋テキスト＋SCROLL）
+======================================== */
 
-.top_animation_scroll_container {
-  display: flex;
-  align-items: flex-end;
+.top {
+  position: relative;
   height: 100vh;
+  overflow: hidden;
 }
 
-.top_animation_text_container {
-  place-content: center;
-  text-align: center;
+/* 3カット（表示制御はJSがする） */
+.top__cuts {
   position: absolute;
-  height: 100vh;
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+  z-index: 101;
+}
+
+.top__cuts div {
+  flex: 1;
+  background-size: cover;
+  background-position: center;
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 1s ease;
+}
+
+/* JS が付与する */
+.top__cuts div.is-show {
+  opacity: 1;
+  visibility: visible;
+}
+
+/* デフォルト（スマホ） */
+.cut1 {
+  background-image: url(../img/p13-1.png);
+}
+.cut2 {
+  background-image: url(../img/p13-2.png);
+}
+.cut3 {
+  background-image: url(../img/p18-1-2.png);
+}
+
+/* TOP テキスト */
+.top__text-container {
+  position: absolute;
+  inset: 0;
   width: 50%;
-  margin: 0 auto;
-  background-color: rgb(0, 0, 0, 0.8);
-  transform: translate(50%, 0);
-  animation-duration: 12s;
-  animation-delay: 0s;
+  height: 100%;
+  margin: auto;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: #000c;
+  opacity: 0;
   z-index: 5000;
+  transition: opacity 1.2s ease;
 }
 
-.top_animation_text {
+/* JS が付与 */
+.top__text-container.is-show {
+  opacity: 1;
+}
+
+.top__text {
   font-size: 3.6rem;
-  letter-spacing: 0.8rem;
-  color: #fff;
   writing-mode: vertical-rl;
-  display: inline-block;
-  padding-top: 50%;
-  padding-bottom: 50%;
-  animation-duration: 13s;
-  animation-delay: 0s;
-  z-index: 5001;
+  letter-spacing: 0.6rem;
+  padding: 50% 0;
+  color: #fff;
 }
 
-.top_animation_text span {
-  display: inline-block;
+.top__text span {
   white-space: nowrap;
 }
 
-@media only screen and (max-width: 540px) {
-  .top_animation_text {
-    font-size: 2.8rem;
-    text-align: start;
-    line-height: 1.6;
-  }
-}
-
-/* ==========================
-  scroll_animation
-========================== */
-
-.top_animation_scroll {
+/* Scroll */
+.top__scroll {
   position: absolute;
   left: 82.7vw;
+  bottom: 0;
   width: 40px;
   height: 150px;
-  padding: 16px 0 0 0;
-  background-color: #fff;
+  padding-top: 16px;
+  background: #fff;
+  opacity: 0;
   z-index: 200;
-  animation: img_3cut 15s ease forwards;
-  will-change: transform, opacity;
+  transition: opacity 1s ease;
 }
 
-.top_animation_scroll p {
-  font-family: "Volkhov";
+/* JS が付与 */
+.top__scroll.is-show {
+  opacity: 1;
+}
+
+.top__scroll p {
   position: absolute;
+  right: 2px;
   font-size: 2.4rem;
   writing-mode: vertical-rl;
-  color: #000;
-  right: 1%;
+  font-family: "Volkhov";
 }
 
-.scroll_icon {
-  animation: animation_scroll 1.8s ease-out infinite;
+.scroll-icon {
   position: absolute;
-  border-left: solid #000 3px;
   top: 1%;
   height: 150px;
+  border-left: 3px solid #000;
+  animation: animation_scroll 1.8s ease-out infinite;
 }
 
 @keyframes animation_scroll {
@@ -266,202 +228,346 @@ body {
   }
 }
 
-/* --------------　manga_introduction　-------------- */
-
-.manga_introduction {
-  padding-top: 10.75rem;
-  background-image: linear-gradient(
-    180deg,
-    rgba(19, 19, 19, 1) 5%,
-    rgba(121, 121, 121, 1) 30%,
-    rgba(255, 255, 255, 1) 40%
-  );
+/* スマホ */
+@media (max-width: 540px) {
+  .top__text {
+    font-size: 2.8rem;
+    padding: 10% 0;
+  }
 }
 
-.introduction01,
-.introduction02,
-.turn03,
-.turn04 {
+/* ========================================
+   Manga 共通
+======================================== */
+
+.manga {
+  background: #fff;
+}
+
+.manga-block {
+  position: relative;
+}
+
+/* ------------ intro ------------ */
+
+.manga-block.intro {
+  padding-top: 10.75rem;
+  background: linear-gradient(180deg, #131313 5%, #797979 30%, #ffffff 40%);
+}
+
+.manga-block.intro img {
   width: -webkit-fill-available;
   margin-inline: 1.6rem;
   padding: 2.5px 0;
 }
 
-.introduction03,
-.turn05,
-.turn06 {
-  width: -webkit-fill-available;
-  margin-inline: 1.6rem;
-}
-
-.development01,
-.development02,
-.last {
-  width: 100vw;
-}
-
-.manga_introduction_textcontainer {
+.intro__label {
   position: relative;
-  background: #d9d9d9;
-  width: 240px;
-  height: 40px;
   top: -54px;
-}
-.manga_introduction p {
-  position: absolute;
-  right: 27px;
-  top: 6px;
+  width: 70vw;
+  max-width: 400px;
+  height: 8vh;
+  min-height: 40px;
+  background: #d9d9d9;
+  margin-left: 1.6rem;
+  right: 20px;
 }
 
-.manga_development {
-  position: relative;
-  background-color: #131313;
+.intro__label p {
+  position: absolute;
+  left: 9vw;
+  top: 2vh;
+  font-size: clamp(1.8rem, 3.6vw, 4.2rem);
+}
+
+/* ------------ dev ------------ */
+
+.manga-block.dev {
+  background: #131313;
+  color: #fff;
+  text-align: center;
   top: -40px;
 }
 
-.manga_development p {
-  text-align: center;
-  color: #fff;
+.dev__caption {
   padding: 80px 0;
 }
 
-.turn01 {
-  max-width: 172%;
-  transform: translate(-20%, 0px);
+.manga-block.dev img {
+  width: 100vw;
+  margin: 0 auto;
 }
-.manga_turn01 {
+
+/* ------------ turn1 ------------ */
+
+.manga-block.turn1 {
   position: relative;
   top: -20px;
 }
 
-.manga_turn_textcontainer {
+.manga-block.turn1 > img {
+  max-width: 172%;
+  transform: translateX(-20%);
+}
+
+.turn1__text {
+  position: absolute;
+  top: 0;
+  right: 25vw;
+  width: 50%;
+  height: 100%;
   display: flex;
   justify-content: center;
   align-items: center;
-  top: 0px;
-  right: 100px;
-  position: absolute;
-  height: 100%;
-  width: 50%;
-  background-image: linear-gradient(
-    180deg,
-    rgba(153, 153, 153, 0.8),
-    rgba(255, 255, 255, 1) 50%,
-    rgba(153, 153, 153, 0.8)
-  );
+  background: linear-gradient(180deg, #999c, #fff 50%, #999c);
 }
 
-.turn_text01 {
-  font-size: 2.4rem;
-  letter-spacing: 0.3rem;
-  line-height: 1.7;
-  writing-mode: vertical-rl;
-  display: inline-block;
+.turn1__text p {
   position: absolute;
+  writing-mode: vertical-rl;
+  font-size: calc(100vw / 20);
+  line-height: 1.7;
+  letter-spacing: 0.3rem;
   text-align: start;
 }
 
-.turn_text01 ruby {
-  color: #e90000;
+.text-combine {
+  writing-mode: horizontal-tb;
+  display: inline-block;
+  line-height: 1;
+  font-size: 0.9em;
+  letter-spacing: -0.2px;
+  margin-bottom: 2.2px;
 }
 
-.turn_text01 rt {
+.turn1__text ruby {
+  color: #e90000;
+}
+.turn1__text rt {
   font-weight: bold;
 }
 
-.text-combine {
-  -webkit-text-combine: horizontal;
-  -ms-text-combine-horizontal: all;
-  text-combine-upright: all;
-}
+/* ------------ turn2 ------------ */
 
-.turn02 {
+.manga-block.turn2 > img:first-of-type {
   max-width: 143%;
   transform: translate(-12%, 40px);
   margin-bottom: 40px;
 }
 
-.manga_turn2_textcontainer p {
-  text-align: center;
-  padding: 40px 0;
+.turn2__bg1 {
+  padding-top: 40px;
+  background: linear-gradient(180deg, #131313 20%, #797979 50%, #ffffff 80%);
 }
 
-.manga_turn_bgcontainer01 {
-  padding: 40px 0 0;
-  background-image: linear-gradient(
-    180deg,
-    rgba(19, 19, 19, 1) 20%,
-    rgba(121, 121, 121, 1) 50%,
-    rgba(255, 255, 255, 1) 80%
-  );
-}
-
-.turn05 {
-  padding: 0;
+.turn2__bg1 img {
   width: -webkit-fill-available;
-  margin: auto;
-  margin-bottom: 5px;
+  margin-inline: 1.6rem;
+  padding: 2.5px 0;
 }
 
-.manga_turn_bgcontainer02 {
-  background-color: #fff;
+.turn2__caption {
+  padding: 40px 0;
+  text-align: center;
 }
 
-.manga_last {
+.turn2__bg2 {
+  background: #fff;
+}
+
+.turn2__bg2 img:first-of-type {
+  width: -webkit-fill-available;
+  margin: 0 auto 5px;
+}
+
+.turn2__bg2 img:last-of-type {
+  width: -webkit-fill-available;
+  margin-inline: 1.6rem;
+}
+
+/* ------------ last ------------ */
+
+.manga-block.last {
+  position: relative;
   padding: 140px 0;
   background: url(../img/32955198_s.jpg) no-repeat center/cover;
-  z-index: 1;
-  position: relative;
 }
 
-.manga_last::after {
+.manga-block.last::after {
   content: "";
   position: absolute;
-  z-index: 2;
-  width: 100%;
-  height: 100%;
-  top: 0;
-  left: 0;
-  background-color: rgba(19, 19, 19, 0.8);
+  inset: 0;
+  background: #131313cc;
 }
 
-.read_more {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  width: 300px;
-  height: 60px;
-  background-color: #fff;
-  border-radius: 20px;
-  text-align: center;
-  box-shadow: #131313 6px 6px;
-  margin: 0 auto;
-  transform: translate(0, 100%);
-  position: relative;
-  z-index: 10;
-}
-
-.last {
+.manga-block.last > img {
   position: relative;
   z-index: 5;
+  width: 100vw;
+  margin-bottom: 10vh;
 }
 
-/* ==========================
-  button
-========================== */
-
-.read_more {
+.read-more {
+  position: relative;
+  z-index: 10;
+  width: 300px;
+  height: 60px;
+  margin: 0 auto;
+  background: #fff;
   display: flex;
   justify-content: center;
   align-items: center;
-  width: 300px;
-  height: 60px;
-  background-color: #fff;
   border-radius: 20px;
+  box-shadow: #131313 0 10px;
+}
+
+.read-more a {
+  line-height: 60px;
+  width: 100%;
   text-align: center;
-  box-shadow: #131313 0px 10px;
-  margin: 0 auto;
-  transform: translate(0, 100%);
-  position: relative;
-  z-index: 10;
+  color: #343232;
+  text-decoration: none;
+}
+
+/* ========================================
+   タブレット（768px〜）
+======================================== */
+
+@media (min-width: 768px) {
+  .top__text {
+    font-size: calc(100vw / 37);
+    padding: 10% 0;
+  }
+
+  /* 画像切替 */
+  .top__cuts .cut1 {
+    background-image: url(../img/p13-1-ipad.png);
+  }
+  .top__cuts .cut2 {
+    background-image: url(../img/p13-2-ipad.png);
+  }
+  .top__cuts .cut3 {
+    background-image: url(../img/p18-1-ipad.png);
+  }
+
+  .intro__label {
+    top: -98px;
+    width: 81vw;
+    max-width: 480px;
+    height: 10vh;
+    min-height: 45px;
+    right: 20px;
+  }
+
+  .intro__label p {
+    font-size: clamp(2rem, 4vw, 3.8rem);
+    left: 8vw;
+    top: 1vh;
+  }
+
+  .turn1__text p {
+    font-size: clamp(2.8rem, 3vw, 3rem);
+  }
+
+  .manga-block.dev img,
+  .manga-block.last img {
+    width: 85vw;
+    margin: 0 auto;
+  }
+
+  .manga-block.last img {
+    margin-bottom: 100px;
+  }
+}
+
+/* ========================================
+   PC（1024px〜）
+======================================== */
+
+@media (min-width: 1024px) {
+  body {
+    max-width: 1160px;
+    margin: 0 auto;
+  }
+
+  .top {
+    max-width: 1160px;
+    margin: 0 auto;
+  }
+
+  .top__cuts .cut1 {
+    background-image: url(../img/p13-1-pc.png);
+  }
+  .top__cuts .cut2 {
+    background-image: url(../img/p13-2-pc.png);
+  }
+  .top__cuts .cut3 {
+    background-image: url(../img/p18-1-pc.png);
+  }
+
+  .top__text-container {
+    width: 30%;
+  }
+
+  .top__text {
+    font-size: 2.8rem;
+    padding: 0;
+  }
+
+  .top__scroll {
+    width: 60px;
+    height: 250px;
+    transform: translateX(-145%);
+  }
+
+  .scroll-icon {
+    height: 250px;
+  }
+
+  .top__scroll p {
+    font-size: 3.6rem;
+    top: 45px;
+  }
+
+  .intro__label {
+    width: 58vw;
+    max-width: 600px;
+    height: 80px;
+    top: -12vh;
+    right: 17px;
+  }
+
+  .intro__label p {
+    left: 11vh;
+    top: 1.2vh;
+  }
+
+  .manga-block.dev img,
+  .manga-block.last img {
+    width: 100%;
+    padding-inline: 1rem;
+  }
+
+  .turn1__text {
+    left: 21%;
+    transform: translateX(10%);
+  }
+
+  .turn1__text p {
+    font-size: clamp(2rem, 2.6vw, 3.6rem);
+  }
+
+  .turn2__caption {
+    padding: 130px 0;
+    font-size: clamp(2.4rem, 5vw, 4rem);
+  }
+
+  .manga-block.last {
+    padding: 300px 0;
+  }
+
+  .read-more {
+    width: 500px;
+    height: 90px;
+  }
 }

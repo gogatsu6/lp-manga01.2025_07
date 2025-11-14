@@ -4,7 +4,9 @@
 
 @media (min-width: 768px) {
   .top_animation_text {
-    font-size: calc(100vw / 25);
+    font-size: calc(100vw / 37);
+    height: 100vh;
+    padding: 10% 0;
   }
   .cut01 {
     background: url(../img/p13-1-ipad.png) no-repeat;
@@ -22,7 +24,18 @@
     transform: translate(0, 0);
   }
   .top_animation_text_container {
-    transform: translate(40%, 0);
+    transform: translate(50%, 0);
+  }
+
+  .manga_introduction_textcontainer {
+    top: -98px;
+    width: 421px;
+    height: 62px;
+  }
+
+  .manga_introduction_textcontainer p {
+    font-size: calc(100vw / 23.5);
+    top: 8px;
   }
 
   .development01,
@@ -56,7 +69,7 @@
     width: 600px;
   }
   .top_animation_text {
-    font-size: 6rem;
+    font-size: 4rem;
     padding-top: 0;
     padding-bottom: 0;
   }
@@ -105,7 +118,8 @@
     width: 100%;
   }
   .manga_turn_textcontainer {
-    transform: translate(-33%, 0%);
+    left: 21%;
+    transform: translate(10%, 0%);
   }
   .manga_turn2_textcontainer p {
     padding: 130px 0;
