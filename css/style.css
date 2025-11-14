@@ -267,7 +267,7 @@ img {
   top: -54px;
   width: 70vw;
   max-width: 400px;
-  height: 8vh;
+  height: 6vh;
   min-height: 40px;
   background: #d9d9d9;
   margin-left: 1.6rem;
@@ -276,8 +276,8 @@ img {
 
 .intro__label p {
   position: absolute;
-  left: 9vw;
-  top: 2vh;
+  left: 15vw;
+  top: 1.5vh;
   font-size: clamp(1.8rem, 3.6vw, 4.2rem);
 }
 
