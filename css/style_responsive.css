@@ -1,0 +1,155 @@
+@charset "UTF-8";
+
+/* --------------tablet-------------- */
+
+@media (min-width: 768px) {
+  .top_animation_text {
+    font-size: calc(100vw / 25);
+  }
+  .cut01 {
+    background: url(../img/p13-1-ipad.png) no-repeat;
+    width: 100%;
+    transform: translate(0, 0);
+  }
+  .cut02 {
+    background: url(../img/p13-2-ipad.png) no-repeat;
+    width: 100%;
+    transform: translate(0, 0);
+  }
+  .cut03 {
+    background: url(../img/p18-1-ipad.png) no-repeat;
+    width: 100%;
+    transform: translate(0, 0);
+  }
+  .top_animation_text_container {
+    transform: translate(40%, 0);
+  }
+
+  .development01,
+  .development02,
+  .last {
+    width: 85vw;
+  }
+}
+
+/* --------------laptop-------------- */
+
+@media screen and (min-width: 1024px) {
+  body {
+    max-width: 1160px;
+    margin: 0 auto;
+  }
+  html {
+  }
+  main {
+  }
+  body,
+  .top_animation_text,
+  .turn_text01 {
+    font-size: 4rem;
+  }
+  .top_animation_3cut {
+    width: 1160px;
+    margin: 0 auto;
+  }
+  .top_animation_text_container {
+    width: 600px;
+  }
+  .top_animation_text {
+    font-size: 6rem;
+    padding-top: 0;
+    padding-bottom: 0;
+  }
+
+  .top_animation_scroll {
+    width: 60px;
+    height: 250px;
+    transform: translateX(-145%);
+  }
+  .scroll_icon {
+    height: 250px;
+  }
+  .top_animation_scroll p {
+    font-size: 3.6rem;
+    top: 45px;
+  }
+  .cut01 {
+    background: url(../img/p13-1-pc.png) no-repeat;
+    width: 300%;
+    transform: translateX(-1140px);
+  }
+  .cut02 {
+    background: url(../img/p13-2-pc.png) no-repeat;
+    width: 302%;
+    transform: translateX(-310px);
+  }
+  .cut03 {
+    background: url(../img/p18-1-pc.png) no-repeat;
+    width: 340%;
+    transform: translateX(-1125px);
+  }
+
+  .manga_introduction_textcontainer {
+    width: 600px;
+    height: 80px;
+    top: -130px;
+  }
+  .manga_introduction p {
+    right: 130px;
+    top: 15px;
+  }
+  .development01,
+  .development02,
+  .last {
+    padding-inline: 1rem;
+    width: 100%;
+  }
+  .manga_turn_textcontainer {
+    transform: translate(-33%, 0%);
+  }
+  .manga_turn2_textcontainer p {
+    padding: 130px 0;
+  }
+  .manga_last {
+    padding: 300px 0;
+  }
+  .read_more {
+    width: 500px;
+    height: 90px;
+  }
+  .top_animation_text_container {
+    position: absolute;
+    top: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 30%;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: rgba(0, 0, 0, 0.8);
+  }
+}
+
+/* --------------other-------------- */
+
+@media (min-width: 1920px) {
+  .cut01 {
+    width: 200%;
+    transform: translateX(-540px);
+  }
+  .cut02 {
+    width: 190%;
+    transform: translateX(-93px);
+  }
+  .cut03 {
+    width: 256%;
+    transform: translateX(-715px);
+  }
+  .top_animation_scroll {
+    transform: translateX(-500%);
+  }
+  .top_animation_text {
+    font-size: 4rem;
+  }
+}

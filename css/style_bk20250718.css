@@ -1,0 +1,472 @@
+@charset "UTF-8";
+
+/* --------------共通　ここから-------------- */
+
+html {
+  box-sizing: border-box;
+  font-size: 62.5%; /* -> 10px */
+  width: 88vw;
+}
+
+body {
+  font-family: "Sawarabi Mincho", "Volkhov", sans-serif;
+  font-weight: 400;
+  font-style: normal;
+  font-size: 2rem;
+  line-height: 1.5;
+  letter-spacing: 0.05em;
+  color: #343232;
+  background-color: #131313;
+}
+
+.fadeUP {
+  animation-name: fadeUpAnime;
+  animation-duration: 3s;
+  animation-fill-mode: forwards;
+  opacity: 0;
+}
+
+@keyframes fadeUpAnime {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+/* --------------　OP　-------------- */
+
+/* ==========================
+  opening_animation_js
+========================== */
+
+#opening {
+  width: 100vw;
+  height: 100vh;
+  transition: all 1s;
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 9999;
+}
+
+.loaded {
+  opacity: 0;
+  visibility: hidden;
+}
+
+/* ==========================
+  opening_animation_img
+========================== */
+
+.drawer-container__scroll {
+  position: absolute;
+  inset: 0;
+  /* overflow: hidden; */
+}
+
+.fadeIn_op {
+  animation: logo_op 8s 0s;
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  opacity: 0;
+  background-color: #131313;
+  z-index: 9998;
+}
+
+.fadeIn_ecg,
+.fadeIn_logo,
+.fadeIn_bg {
+  animation: logo_op 4s 0s;
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  opacity: 0;
+}
+
+.fadeIn_ecg {
+  background: url(../img/ECG.png) no-repeat center;
+  animation-delay: 1s;
+  z-index: 1000;
+}
+.fadeIn_logo {
+  background: url(../img/logo_white-02.svg) no-repeat center;
+  animation-delay: 2s;
+  z-index: 2000;
+}
+.fadeIn_bg {
+  background: url(../img/32955198_s.jpg) no-repeat center/cover;
+  animation-delay: 6s;
+  z-index: 3000;
+}
+
+.fadeIn_bg::after {
+  content: "";
+  position: absolute;
+  z-index: 3011;
+  width: 100%;
+  height: 100%;
+  top: 0;
+  left: 0;
+  background-color: rgba(19, 19, 19, 0.9);
+}
+
+@keyframes logo_op {
+  0% {
+    opacity: 1;
+  }
+  94% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0;
+  }
+}
+
+/* --------------　top_animation_3cut　-------------- */
+
+.top_3cut {
+  display: flex;
+  width: 100vw;
+  overflow: hidden;
+  flex-direction: column;
+  flex-wrap: nowrap;
+  z-index: 100;
+}
+
+/* .fadeuptrigger {
+  opacity: 0;
+} */
+
+.top_animation_3cut {
+  animation: img_3cut 4s 0s;
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  background-color: #131313;
+  z-index: 101;
+}
+
+.cut01,
+.cut02,
+.cut03 {
+  animation: img_3cut 4s 0s;
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+}
+
+.top_animation_3cut div {
+  flex: 1;
+  height: calc(100% / 3);
+  object-fit: cover;
+  background-size: 100%;
+}
+
+.cut01 {
+  background: url(../img/p13-1.png) no-repeat;
+  width: 191%;
+  transform: translate(-23%, 0);
+  animation-delay: 1s;
+}
+.cut02 {
+  background: url(../img/p13-2.png) no-repeat;
+  width: 175%;
+  transform: translate(-1%, 100%);
+  animation-delay: 2s;
+}
+.cut03 {
+  background: url(../img/p18-1-2.png) no-repeat;
+  width: 278%;
+  transform: translate(-26%, 200%);
+  animation-delay: 3s;
+}
+
+@keyframes img_3cut {
+  0% {
+    opacity: 0;
+  }
+  50% {
+    opacity: 0;
+  }
+  50.1% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+
+/* --------------　top_animation_text　-------------- */
+
+.top_animation_scroll_container {
+  display: flex;
+  align-items: flex-end;
+  height: 100vh;
+}
+
+.top_animation_text_container {
+  place-content: center;
+  text-align: center;
+  position: absolute;
+  height: 100vh;
+  width: 50%;
+  margin: 0 auto;
+  background-color: rgb(0, 0, 0, 0.8);
+  transform: translate(50%, 0);
+  z-index: 5000;
+}
+
+.top_animation_text {
+  font-size: 3.6rem;
+  letter-spacing: 0.8rem;
+  color: #fff;
+  writing-mode: vertical-rl;
+  display: inline-block;
+  padding-top: 50%;
+  padding-bottom: 50%;
+}
+
+.top_animation_text span {
+  display: inline-block;
+  white-space: nowrap;
+}
+
+@media only screen and (max-width: 540px) {
+  .top_animation_text {
+    font-size: 2.8rem;
+    text-align: start;
+    line-height: 1.6;
+  }
+}
+
+/* ==========================
+  scroll_animation
+========================== */
+
+.top_animation_scroll {
+  background-color: #fff;
+  width: 40px;
+  height: 150px;
+  padding: 16px 0 0 0;
+  position: relative;
+  transform: translate(84vw, 0);
+  z-index: 200;
+}
+
+.top_animation_scroll p {
+  font-family: "Volkhov";
+  position: absolute;
+  font-size: 2.4rem;
+  writing-mode: vertical-rl;
+  color: #000;
+  right: 1%;
+}
+
+.scroll_icon {
+  animation: animation_scroll 1.8s ease-out infinite;
+  position: absolute;
+  border-left: solid #000 3px;
+  top: 1%;
+  height: 150px;
+}
+
+@keyframes animation_scroll {
+  0% {
+    transform: scaleY(0);
+    transform-origin: top;
+  }
+  50% {
+    transform: scaleY(1);
+    transform-origin: top;
+  }
+  50.1% {
+    transform: scaleY(1);
+    transform-origin: bottom;
+  }
+  100% {
+    transform: scaleY(0);
+    transform-origin: bottom;
+  }
+}
+
+/* --------------　manga_introduction　-------------- */
+
+.manga_introduction {
+  padding-top: 10.75rem;
+  background-image: linear-gradient(
+    180deg,
+    rgba(19, 19, 19, 1) 5%,
+    rgba(121, 121, 121, 1) 30%,
+    rgba(255, 255, 255, 1) 40%
+  );
+}
+
+.introduction01,
+.introduction02,
+.turn03,
+.turn04 {
+  width: -webkit-fill-available;
+  margin-inline: 1.6rem;
+  padding: 2.5px 0;
+}
+
+.introduction03,
+.turn05,
+.turn06 {
+  width: -webkit-fill-available;
+  margin-inline: 1.6rem;
+}
+
+.development01,
+.development02,
+.last {
+  width: 100vw;
+}
+
+.manga_introduction_textcontainer {
+  position: relative;
+  background: #d9d9d9;
+  width: 240px;
+  height: 40px;
+  top: -54px;
+}
+.manga_introduction p {
+  position: absolute;
+  right: 27px;
+  top: 6px;
+}
+
+.manga_development {
+  position: relative;
+  background-color: #131313;
+  top: -40px;
+}
+
+.manga_development p {
+  text-align: center;
+  color: #fff;
+  padding: 80px 0;
+}
+
+.turn01 {
+  max-width: 172%;
+  transform: translate(-20%, 0px);
+}
+.manga_turn01 {
+  position: relative;
+  top: -20px;
+}
+
+.manga_turn_textcontainer {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  top: 0px;
+  right: 100px;
+  position: absolute;
+  height: 100%;
+  width: 50%;
+  background-image: linear-gradient(
+    180deg,
+    rgba(153, 153, 153, 0.8),
+    rgba(255, 255, 255, 1) 50%,
+    rgba(153, 153, 153, 0.8)
+  );
+}
+
+.turn_text01 {
+  font-size: 2.4rem;
+  letter-spacing: 0.3rem;
+  line-height: 1.7;
+  writing-mode: vertical-rl;
+  display: inline-block;
+  position: absolute;
+  text-align: start;
+}
+
+.turn_text01 ruby {
+  color: #e90000;
+}
+
+.turn_text01 rt {
+  font-weight: bold;
+}
+
+.text-combine {
+  -webkit-text-combine: horizontal;
+  -ms-text-combine-horizontal: all;
+  text-combine-upright: all;
+}
+
+.turn02 {
+  max-width: 143%;
+  transform: translate(-12%, 40px);
+  margin-bottom: 40px;
+}
+
+.manga_turn_bgcontainer01 {
+  padding: 40px 0 20px;
+  background-image: linear-gradient(
+    180deg,
+    rgba(19, 19, 19, 1) 20%,
+    rgba(121, 121, 121, 1) 50%,
+    rgba(255, 255, 255, 1) 80%
+  );
+}
+
+.turn05 {
+  padding: 0;
+  width: -webkit-fill-available;
+  margin: auto;
+  margin-bottom: 5px;
+}
+
+.manga_turn_bgcontainer02 {
+  background-color: #fff;
+}
+
+.manga_last {
+  padding: 140px 0;
+  background: url(../img/32955198_s.jpg) no-repeat center/cover;
+  z-index: 1;
+  position: relative;
+}
+
+.manga_last::after {
+  content: "";
+  position: absolute;
+  z-index: 2;
+  width: 100%;
+  height: 100%;
+  top: 0;
+  left: 0;
+  background-color: rgba(19, 19, 19, 0.8);
+}
+
+.read_more {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 300px;
+  height: 60px;
+  background-color: #fff;
+  border-radius: 20px;
+  text-align: center;
+  box-shadow: #131313 6px 6px;
+  margin: 0 auto;
+  transform: translate(0, 100%);
+  position: relative;
+  z-index: 10;
+}
+
+.last {
+  position: relative;
+  z-index: 5;
+}
