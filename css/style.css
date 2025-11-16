@@ -33,6 +33,13 @@ img {
   display: block;
 }
 
+footer {
+  font-size: clamp(1.2rem, 2.6vw, 2.4rem);
+  color: #fff;
+  text-align: center;
+  margin: 20px 0;
+}
+
 /* ========================================
    Opening
 ======================================== */
@@ -428,13 +435,6 @@ img {
   text-align: center;
   color: #343232;
   text-decoration: none;
-}
-
-#footer {
-  font-size: clamp(1.2rem, 2.6vw, 2.4rem);
-  color: #fff;
-  text-align: center;
-  margin: 20px 0;
 }
 
 /* ========================================
