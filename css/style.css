@@ -525,7 +525,8 @@ footer {
   .top__scroll {
     width: 60px;
     height: 250px;
-    transform: translateX(-145%);
+    left: 50%;
+    transform: translateX(30vh);
   }
 
   .scroll-icon {
