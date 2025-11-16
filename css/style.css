@@ -430,6 +430,13 @@ img {
   text-decoration: none;
 }
 
+#footer {
+  font-size: clamp(1.2rem, 2.6vw, 2.4rem);
+  color: #fff;
+  text-align: center;
+  margin: 20px 0;
+}
+
 /* ========================================
    タブレット（768px〜）
 ======================================== */
